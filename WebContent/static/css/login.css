@@ -1,0 +1,25 @@
+/*鐧诲叆椤甸潰鎬荤殑妯″潡*/
+body{
+    background-color: #0C0C0C;
+}
+/*鐧诲叆椤甸潰 澶撮儴妯″潡*/
+.header{
+    background-size: 100%;
+    height: 40%;
+}
+/*鐧诲叆椤甸潰 涓嬫柟妯″潡 鐨勪腑闂磋〃鍗曢儴鍒�*/
+#content{
+    width:35%;
+    margin: 0 30% 0 30%;
+    height: 53%;
+}
+
+/*娉ㄥ唽琛ㄥ崟鐨� 楠岃瘉鐮� 閮ㄥ垎*/
+#code{
+    font-family:Arial;
+    font-style:italic;
+    font-weight:bold;
+    letter-spacing:2px;
+    color: #393D49;
+    width: 70px;
+}
