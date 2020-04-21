@@ -49,4 +49,19 @@
   <welcome-file-list>
     <welcome-file>loginExt.jsp</welcome-file>
   </welcome-file-list>
+	  <!--
+  <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>Client Cert Users-only Area</realm-name>
+    </login-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SSL</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+	    -->
 </web-app>
