@@ -1,67 +1,58 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zwz
-  Date: 2020/2/10 0010
-  Time: 9:01
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-
 //    request.getSchema()可以返回当前页面使用的协议:  http
 //    request.getServerName()可以返回当前页面所在的服务器的名字:  localhost
 //    request.getServerPort()可以返回当前页面所在的服务器使用的端口: 8080;
-//    request.getContextPath()可以返回当前页面所在的应用的名字.如 http://localhost:8080/zwz/hello.jsp返回 /zwz
+//    request.getContextPath()可以返回当前页面所在的应用的名字: ZwzTelSystem
 
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
 
-    //    获取现在的系统时间
+//    时间
     Date date = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String nowDate = sdf.format(date);
 %>
-
-<%--
-
-            登入界面  打开项目的最开始的页面
-
---%>
-
 <html>
+
     <head>
-        <%--    如果网页里出现了中文,没有这一句,将会导致中文乱码--%>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <%--    网页标题--%>
+        <%-- 网页标题  --%>
         <title>ZWZ通讯录管理系统登入</title>
 
-        <%--    导入外部CSS样式、JS文件--%>
+        <%-- 外部CSS样式、JS文件  --%>
         <link rel="stylesheet" href="<%=basePath%>/static/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="<%=basePath%>/static/css/layui.css"/>
         <link rel="stylesheet" href="<%=basePath%>/static/css/login.css"/>
         <script src="<%=basePath%>/static/js/jquery-3.3.1.min.js"></script>
 
-
-        <%--    内部CSS样式--%>
+        <%-- 内部CSS样式  --%>
         <style type="text/css">
-            /*头部div*/
+            /*头部背景图片*/
             .header{
                 background-image: url("<%=basePath%>/static/img/login_back.jpeg");
             }
+            /* 注册页面表格间距 */
+            td{
+            	padding : 10px;
+            }
+            /* 输入栏文本和提示文本的字体颜色和大小 */
+            input{color:#BBB;font-size:18px;}
+			input::-webkit-input-placeholder{color:#666;font-size:18px;}
         </style>
-
+        
     </head>
+    
 
     <body>
 
-        <%-- header为页面上面部分,用于显示背景图片美化 --- 开始--%>
+        <%-- 头部背景图片 --%>
         <div class="header"></div>
-        <%-- header --- 结尾--%>
 
 
         <%--container部分 用于显示登入注册表单 占整个界面的大多数--%>
@@ -69,7 +60,7 @@
 
             <div id="content">
 
-                <%--下方主界面标题--%>
+                <%--主界面标题--%>
                 <h2 class="text-nowrap" style="color: #F8F8F8;text-align:center;padding-top:10%;font-family: Menlo">ZWZ&nbsp;通讯录管理系统</h2><br><br>
 
                 <%--该div存放两个登入、注册按钮--%>
@@ -85,6 +76,7 @@
                         <a href="#" id="register" style="text-decoration:none;">注册</a>
                     </label>
                 </div>
+                
                 <hr style="color: #484848;text-align:center;"/>
 
                  <%-- 登入的表单 开始--%>
@@ -96,19 +88,19 @@
                     <div>
                         <%--  1 用户名 输入框--%>
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" >
-                                <span class="fa fa-user fa-fw">账号</span>
+                            <label class="layui-form-label" style="font-size:20px;">
+                                <span class="fa fa-user fa-fw" style="color:#CCC">账号</span>
                             </label>
                             <div class="layui-input-inline">
-                                <input type="text" name="a_name" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="Username"/>
+                                <input type="text" name="a_name" class="layui-input" style="color: #FFFFFF;background:none;border: none;border-bottom:1px solid white;" placeholder="Username"/>
                             </div>
                         </div>
                         <br/>
 
                         <%--  2 密码 输入框--%>
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" >
-                                <span class="fa fa-lock fa-fw">密码</span>
+                            <label class="layui-form-label" style="font-size:20px;">
+                                <span class="fa fa-lock fa-fw" style="color:#CCC">密码</span>
                             </label>
                             <div class="layui-input-inline">
                                 <input type="password" name="a_password" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="Password"/>
@@ -130,110 +122,128 @@
 
                 <%-- 注册的表单 开始--%>
                 <form action="<%=basePath%>/sys/sysuser/register" id="registerform" method="post" class="layui-form" hidden="hidden" style="text-align: center;margin-right:12%;margin-top:10%;">
+					<table width="500" class="ta" border="0"  cellpadding="0" cellspacing="0" align="center">
+						 <%-- 1 账号--%>
+					    <tr>
+					    	<%-- 第一个td : 显示输入框输入的是什么东西 --%>
+						    <td class="layui-form-item layui-inline" style="font-size:20px;margin:0px;">
+					          <span class="fa fa-user fa-fw" style="color:#CCC">登入账号</span>
+					        </td>
+					        <%-- 第二个td : 显示输入框 --%>
+					        <td colspan="1" class="layui-input-inline">
+					        	<input type="text" name="a_name" id="a_name" onblur="return checkName();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="5-10位字母数字下划线"/>
+					        </td>
+					        <%-- 第三个td : 显示输入框是否规范的提示信息  下同--%>
+					        <td>
+					        	<span id="info"></span>
+					        </td>
+					    </tr> 		 
 
-                    <div>
+						 <%-- 2 密码--%>
+						<tr>
+						    <td class="layui-form-item layui-inline" style="font-size:20px;margin:0px;">
+					          <span class="fa fa-user fa-fw" style="color:#CCC">登入密码</span>
+					        </td>
+					        <td colspan="1" class="layui-input-inline">
+					        	<input type="password" name="a_password" id="a_password" onblur="return checkPassword();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="6-16位字母数字下划线"/>
+                            </td>
+					        <td>
+					        	<span id="infopassword"></span>
+					        </td>
+					    </tr> 
 
-                        <%-- 1 用户名--%>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" style="font-size:16px;">
-                                <span class="fa fa-user fa-fw">登入账号</span>
-                            </label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="a_name" id="a_name" onblur="return checkName();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="5-10位字母数字下划线"/>
-                            </div>
-                            <%--  info用于显示 用户名是否被注册 的信息--%>
-                            <span id="info"></span>
-                        </div>
-                        <br/>
-
-
-                       <%-- 2 密码--%>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" style="font-size:16px;">
-                                <span class="fa fa-lock fa-fw">登入密码</span>
-                            </label>
-                            <div class="layui-input-inline">
-                                <input type="password" name="a_password" id="a_password" onblur="return checkPassword();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="6-16位字母数字下划线"/>
-                            </div>
-                            <span id="infopassword"></span>
-                        </div>
-                        <br/>
-                        
-                        
                         <%-- 3 手机号码--%>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" style="font-size:16px;">
-                                <span class="fa fa-lock fa-fw">手机号码</span>
-                            </label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="a_telnum" id="a_telnum" onblur="return checkTel();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入电话号码"/>
-                            </div>
-                            <span id="infotel"></span>
-                        </div>
-                        <br/>
+                        <tr>
+						    <td class="layui-form-item layui-inline" style="font-size:20px;margin:0px;">
+					          <span class="fa fa-user fa-fw" style="color:#CCC">手机号码</span>
+					        </td>
+					        <td colspan="1" class="layui-input-inline">
+					        	<input type="text" name="a_telnum" id="a_telnum" onblur="return checkTel();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入电话号码"/>
+                            </td>
+					        <td>
+					        	<span id="infotel"></span>
+					        </td>
+					    </tr> 
                         
                         <%-- 4 真实姓名--%>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" style="font-size:16px;">
-                                <span class="fa fa-lock fa-fw">真实姓名</span>
-                            </label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="a_realname" id="a_realname" onblur="return checkRealName();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入真实姓名"/>
-                            </div>
-                            <span id="inforealname"></span>
-                        </div>
-                        <br/>
-                        
-                        <%-- 5 邮箱--%>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label" style="font-size:16px;">
-                                <span class="fa fa-lock fa-fw">电子邮箱</span>
-                            </label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="a_email" id="a_email" onblur="return checkEmail();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入电子邮箱"/>
-                            </div>
-                            <span id="infoemail"></span>
-                        </div>
-                        <br/>
+                        <tr>
+						    <td class="layui-form-item layui-inline" style="font-size:20px;margin:0px;">
+					          <span class="fa fa-user fa-fw" style="color:#CCC">真实姓名</span>
+					        </td>
+					        <td colspan="1" class="layui-input-inline">
+					        	<input type="text" name="a_realname" id="a_realname" onblur="return checkRealName();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入真实姓名"/>
+                            </td>
+					        <td>
+					        	<span id="inforealname"></span>
+					        </td>
+					    </tr> 
 
+                        <%-- 5 邮箱--%>
+                        <tr>
+						    <td class="layui-form-item layui-inline" style="font-size:20px;margin:0px;">
+					          <span class="fa fa-user fa-fw" style="color:#CCC">电子邮箱</span>
+					        </td>
+					        <td colspan="1" class="layui-input-inline">
+					        	<input type="text" name="a_email" id="a_email" onblur="return checkEmail();" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入电子邮箱"/>
+                            </td>
+					        <td>
+					        	<span id="infoemail"></span>
+					        </td>
+					    </tr> 
 
                         <%-- 6 验证码--%>
-                        <div class="layui-form-item layui-inline" style="margin-left: 15%;">
-                            <label class="layui-form-label">
-                                <span class="fa fa-envelope fa-fw"></span>
-                            </label>
-                            <div class="layui-input-inline" style="width: 32%;">
-                                <input type="text" id="check" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;"/>
-                            </div>
-                            <div class="layui-input-inline">
-                                <input id="code" onclick="createCode()" type="button" style="background:none;border: none;margin-left:198px;margin-top:-14%;"/>
-                            </div>
-                        </div>
-                        <br/>
-                        <br/>
-
+                        <tr>
+						    <td class="layui-form-item layui-inline" style="font-size:20px;margin:0px;">
+					          <span class="fa fa-envelope fa-fw" style="color:#CCC;margin:0px 0px 5px 0px;">验证码-></span>
+					        </td>
+					        <td colspan="1" class="layui-input-inline" >
+					        	<input type="text" id="check" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入右侧的验证码"/>
+                            </td>
+					        <td>
+					        	<input id="code" onclick="createCode()" type="button" style="background:none;border: none;"/>
+                            </td>
+					    </tr> 
 
                         <%-- 4 提交按钮--%>
-                        <div style="text-align:center;color: #009688;background-color: #01AAED;width:48%;margin-left:34%;">
-                            <input type="button" class="layui-btn layui-btn-lg" style="background: none;" value="Sing up" onclick="validate()"/>
-                        </div>
-
-                    </div>
-
+                        <tr style="text-align:center;">
+                        	<td colspan="1" class="layui-input-inline">
+                        		<input type="button" class="layui-btn layui-btn-lg" style="width:200px;background-color: #01AAED;" value="注册" onclick="validate()"/>
+                        	</td>
+                        </tr>
+                        
+                        <%-- 5 给底部留一点空白 美化界面 --%>
+						<tr>
+							<td></td>
+						</tr>
+  
+					</table>
                 </form>
                <%-- 注册的表单 结尾--%>
 
            </div>
         </div>
 
-
-
-
     </body>
 
     <script type="text/javascript">
-
-
+    
+		// 用户名 失去焦点
+    	//$("#a_name").blur(function(){
+    		//if($("#info").html() != "可以注册"){
+    		//	$("#a_name").focus();
+    		//}
+    		//if(checkName()==false){
+    		//	$("#a_name").focus();
+    		//}
+		//}) 
+		
+		// 不规范的密码 失去焦点
+    	$("#a_password").blur(function(){
+    		if(checkName()==false){
+        		$("#a_password").focus();
+    		}
+		}) 
+    	
         // 当点击注册按钮的时候 登入按钮高亮 登入表单隐藏 注册表单显示
         $("#register").click(function(){
             $("#login").css({'border':'none','color':'#393D49'});
@@ -256,55 +266,63 @@
         // 可以注册返回ture
         // 已存在无法注册返回false
         function checkName(){
-            var a_name = $("#a_name").val(); //先获取 输入的用户名
-            var reg= /^[a-zA-Z][a-zA-Z0-9_]{4,9}$/; 
-            var result= reg.test(a_name); 
+            var a_name = $("#a_name").val(); //先获取 输入框的用户名
+            var reg= /^[a-zA-Z][a-zA-Z0-9_]{4,9}$/;  //大小写字母 数字 下划线 4到9位
+            var result= reg.test(a_name); // 测试 是否符合要求
 
-            if(a_name == null || a_name.length==0){
+            if(a_name == null || a_name.length==0){ // 不规范颜色为红色 表示警告
             	$("#info").text("账号不能为空").css({'color':'red','font-size':'14px'});
+            	$("#a_name").focus();
             	return false;
             }
 			if(!result){
 				$("#info").text("账号不规范").css({'color':'red','font-size':'14px'});
+				$("#a_name").focus();
             	return false;
 			}
-            if(a_name != ''){
-                $.ajax({
-                    url: '<%=basePath%>/sys/sysuser/findByName?name=' + a_name,
-                    type: 'post',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(data){
-                    	// alert(data);
-                        if(data != "aaa"){
-                            $("#info").text("可以注册").css({'color':'green','font-size':'14px'});
-                            return true;
-                        }
-                        else{
-                            $("#info").text("该用户名已注册").css({'color':'red','font-size':'14px'});
-                            return false;
-                        }
-                    },
-                    error: function(){
-                        alert("错误");
+            $.ajax({
+                url: '<%=basePath%>/sys/sysuser/findByName?name=' + a_name,
+                type: 'post',
+                contentType: 'application/json;charset=utf-8',
+                success: function(data){
+                	// alert(data);
+                    if(data != "aaa"){
+                        $("#info").text("可以注册").css({'color':'green','font-size':'14px'});
+                        $("#a_password").focus();
+                        return true;
+                    }
+                    else{
+                        $("#info").text("该用户名已注册").css({'color':'red','font-size':'14px'});
                         return false;
                     }
-                });
-            }else{
-                $("#info").text("");
+                },
+                error: function(){
+                    alert("数据请求失败，请检查数据库连接");
+                    return false;
+                },
+                complete: function(){
+                	
+                }
+            });
+            if($("#info").html() != "可以注册"){
+                $("#a_name").focus();
             }
         }
         
+        // 检测密码
         function checkPassword(){
 			var a_password = $("#a_password").val(); 
 			
-			var reg= /^[a-zA-Z][a-zA-Z0-9_]{5,15}$/; 
+			var reg= /^[a-zA-Z0-9_]{6,16}$/; 
             var result= reg.test(a_password); 
             if(a_password == null || a_password.length==0){
             	$("#infopassword").text("密码不能为空").css({'color':'red','font-size':'14px'});
+            	$("#a_password").focus();
             	return false;
             }
             else if(!result){
             	$("#infopassword").text("密码不规范").css({'color':'red','font-size':'14px'});
+            	$("#a_password").focus();
             	return false;
             }
             else{
@@ -314,6 +332,7 @@
             
         }
         
+        // 检测电话
         function checkTel(){
 			var a_telnum = $("#a_telnum").val(); 
 			var reg= /^1[3,5,7,8,9][0-9]{9}$/; 
@@ -321,10 +340,12 @@
             
             if(a_telnum == null || a_telnum.length==0){
             	$("#infotel").text("电话不能为空").css({'color':'red','font-size':'14px'});
+            	$("#a_telnum").focus();
             	return false;
             }
             else if(!result){
             	$("#infotel").text("电话不规范").css({'color':'red','font-size':'14px'});
+            	$("#a_telnum").focus();
             	return false;
             }
             else{
@@ -334,7 +355,7 @@
             
         }
         
-        
+        //检测真实姓名
         function checkRealName(){
 			var a_realname = $("#a_realname").val(); 
 			var reg= /^[\u4e00-\u9fa5]{1,5}$/; 
@@ -342,10 +363,12 @@
 			
             if(a_realname == null || a_realname.length==0){
             	$("#inforealname").text("姓名不能为空").css({'color':'red','font-size':'14px'});
+            	$("#a_realname").focus();
             	return false;
             }
             else if(!result){
             	$("#inforealname").text("请输入中文").css({'color':'red','font-size':'14px'});
+            	$("#a_realname").focus();
             	return false;
             }
             else{
@@ -355,7 +378,7 @@
             
         }
         
-        
+        // 检测邮箱
         function checkEmail(){
 			var a_email = $("#a_email").val(); 
 			var reg= /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; 
@@ -363,10 +386,12 @@
 			
             if(a_email == null || a_email.length==0){
             	$("#infoemail").text("邮箱不能为空").css({'color':'red','font-size':'14px'});
+            	$("#a_email").focus();
             	return false;
             }
             else if(!result){
             	$("#infoemail").text("邮箱错误").css({'color':'red','font-size':'14px'});
+            	$("#a_email").focus();
             	return false;
             }
             else{
@@ -383,7 +408,7 @@
             //首先默认code为空字符串
             code = '';
 
-            //设置验证码长度，这里看需求，我这里设置了4位
+            //设置验证码长度，设置了4位
             var codeLength = 4;
 
             //获取 注册表单中 验证码对象
