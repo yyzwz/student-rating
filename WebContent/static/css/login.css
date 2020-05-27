@@ -15,11 +15,11 @@ body{
 }
 
 /*娉ㄥ唽琛ㄥ崟鐨� 楠岃瘉鐮� 閮ㄥ垎*/
-#code{
+#code #loginCode{
     font-family:Arial;
     font-style:italic;
     font-weight:bold;
     letter-spacing:2px;
-    color: #393D49;
+    color: #333333 !important;
     width: 70px;
 }

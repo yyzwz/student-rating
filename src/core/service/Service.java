@@ -7,10 +7,9 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.forestry.model.sys.SysUser;
-
 import core.support.BaseParameter;
 import core.support.QueryResult;
+import ypc.zwz.model.SysUser;
 
 /**
  * @author Yang Tian

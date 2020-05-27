@@ -30,7 +30,12 @@
         <link rel="stylesheet" href="<%=basePath%>/static/css/layui.css"/>
         <link rel="stylesheet" href="<%=basePath%>/static/css/login.css"/>
         <script src="<%=basePath%>/static/js/jquery-3.3.1.min.js"></script>
-
+			<script type="text/javascript">
+		       function refresh(){
+		         //使用new Date()参数实现路径更换，预防缓存图片重新加载
+		         document.getElementById("codeimage").src="/ZwzTelSystem/code/createcode?"+new Date();
+		       }
+		    </script>
         <%-- 内部CSS样式  --%>
         <style type="text/css">
             /*头部背景图片*/
@@ -89,10 +94,10 @@
                         <%--  1 用户名 输入框--%>
                         <div class="layui-form-item layui-inline">
                             <label class="layui-form-label" style="font-size:20px;">
-                                <span class="fa fa-user fa-fw" style="color:#CCC">账号</span>
+                                <span class="fa fa-user fa-fw" style="color:#CCC">账&nbsp;&nbsp;&nbsp;&nbsp;号</span>
                             </label>
                             <div class="layui-input-inline">
-                                <input type="text" name="a_name" class="layui-input" style="color: #FFFFFF;background:none;border: none;border-bottom:1px solid white;" placeholder="Username"/>
+                                <input type="text" name="a_name" class="layui-input" style="color: #FFFFFF;background:none;border: none;border-bottom:1px solid white;" placeholder="username"/>
                             </div>
                         </div>
                         <br/>
@@ -100,18 +105,30 @@
                         <%--  2 密码 输入框--%>
                         <div class="layui-form-item layui-inline">
                             <label class="layui-form-label" style="font-size:20px;">
-                                <span class="fa fa-lock fa-fw" style="color:#CCC">密码</span>
+                                <span class="fa fa-lock fa-fw" style="color:#CCC">密&nbsp;&nbsp;&nbsp;&nbsp;码</span>
                             </label>
                             <div class="layui-input-inline">
-                                <input type="password" name="a_password" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="Password"/>
+                                <input type="password" name="a_password" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="password"/>
                             </div>
                         </div>
                         <br/>
-                        <br/>
+                        <%-- 验证码 --%>
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label" style="font-size:20px;">
+                            <img alt="*" src="/ZwzTelSystem/code/createcode" onclick="refresh()" id="codeimage" title="点击更换图片">
+                                <%--<span class="fa fa-lock fa-fw" style="color:#CCC">验证码</span>
+                                <input id="loginCode" onclick="createCode()" type="button" style="color:#333333;display:inline;background:none;border: none;"/>
+                            --%>
+                            </label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="code" id="loginCheck" class="layui-input" style="display:inline;background:none;border: none;border-bottom:1px solid white;" placeholder="左侧验证码"/>
+                            </div>
+                        </div>
+                        
 
                         <%--  3 登入 按钮--%>
                         <div style="text-align:center;color: #009688;background-color: #01AAED;width:48%;margin-left:138px;">
-                            <input type="submit" class="layui-btn layui-btn-lg" style="background: none;" value="Sing in"/>
+                            <input type="button" class="layui-btn layui-btn-lg" style="background: none;" value="Sing in" onclick="loginValidate()"/>
                         </div>
 
                     </div>
@@ -200,7 +217,7 @@
 					        	<input type="text" id="check" class="layui-input" style="background:none;border: none;border-bottom:1px solid white;" placeholder="请输入右侧的验证码"/>
                             </td>
 					        <td>
-					        	<input id="code" onclick="createCode()" type="button" style="background:none;border: none;"/>
+					        	<input id="code" onclick="createCode()" type="button" style="color:#333333;background:none;border: none;"/>
                             </td>
 					    </tr> 
 
@@ -261,7 +278,7 @@
             $("#loginform").show();
         });
 
-
+        
         // 该方法用于注册时,检测输入的名字是否已经被注册
         // 可以注册返回ture
         // 已存在无法注册返回false
@@ -426,6 +443,19 @@
             }
             //将拼接好的字符串赋值给表单
             codeV.value = code;
+            ///////////////////////////////////////////////////////
+            code = '';
+            var logincode = document.getElementById('loginCode');
+          	//生成N位随机验证码
+            for(var i = 0; i < codeLength; i++){
+                //设置随机数范围,这设置为0 ~ 36
+                var index = Math.floor(Math.random()*36);
+                //字符串拼接 将每次随机的字符 进行拼接
+                code += random[index];
+            }
+            //将拼接好的字符串赋值给表单
+            logincode.value = code;
+            
         }
 
 
@@ -473,6 +503,24 @@
             else{
                 //没问题就提交注册信息
                 $("#registerform").submit();
+            }
+        }
+        
+        //登入表单 验证码核验
+        function loginValidate(){
+        	
+            var lValue = document.getElementById('loginCheck').value.toUpperCase();
+            //如果验证码为空
+            if(lValue == 0){
+            	alert("请输入验证码");
+            }
+            //else if(lValue != code){
+            //    alert("验证码错误");
+            //    createCode();
+            //}
+            else{
+                //没问题就提交
+                $("#loginform").submit();
             }
         }
 

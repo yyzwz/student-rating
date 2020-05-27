@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.forestry.model.sys.SysUser;
-
 import core.support.BaseParameter;
 import core.support.QueryResult;
+import ypc.zwz.model.SysUser;
 
 /**
  * @author Yang Tian

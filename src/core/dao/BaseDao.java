@@ -30,11 +30,10 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
-import com.forestry.model.sys.SysUser;
-
 import core.extjs.ExtJSBaseParameter;
 import core.support.BaseParameter;
 import core.support.QueryResult;
+import ypc.zwz.model.SysUser;
 /**
  * @author Yang Tian
  * @email 1298588579@qq.com

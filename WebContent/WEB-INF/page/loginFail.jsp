@@ -89,7 +89,7 @@
             <br/><br/>
 
             <button class="btn btn-primary btn-lg" type="button">
-                <a href="<%=basePath%>/users/outLogin.do" style="text-decoration: none;color:white;">点击我返回登录页面</a>
+                <a href="<%=basePath%>/sys/sysuser/logout" style="text-decoration: none;color:white;">点击我返回登录页面</a>
             </button>
         </div>
 

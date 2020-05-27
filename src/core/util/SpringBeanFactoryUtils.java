@@ -9,7 +9,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 
-import com.forestry.core.Constant;
+import ypc.zwz.core.Constant;
 
 /**
  * @author Yang Tian

@@ -91,7 +91,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 		},{
 			text : "电话号码",
 			dataIndex : 'tel',
-			width : '8%',
+			width : '12%',
 			sortable : false
 		}, {
 			text : "关系",
@@ -101,12 +101,12 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 		}, {
 			text : "QQ",
 			dataIndex : 'qq',
-			width : '8%',
+			width : '12%',
 			sortable : false
 		}, {
 			text : "家庭地址",
 			dataIndex : 'address',
-			width : '25%',
+			width : '20%',
 			sortable : false
 		}, {
 			text : "注册日期",
@@ -148,14 +148,14 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 				name : 'houseName',
 				fieldLabel : '姓名',
 				labelWidth : 60,
-				width : '10%'
+				width : '20%'
 			}, {
 				xtype : 'textfield',
 				id : 'houseQueryform_houseOwnerName',
 				name : 'houseOwnerName',
 				fieldLabel : '电话号码',
 				labelWidth : 60,
-				width : '10%'
+				width : '20%'
 			},{
 				xtype : 'combobox',
 				fieldLabel : '关系',

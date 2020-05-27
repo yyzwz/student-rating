@@ -17,7 +17,7 @@ Ext.onReady(function() {
 	var tokenDelimiter = ':';
 
 	var mainPortal = Ext.create('Ext.app.Home', {
-		title : '通讯录分类数量总览'
+		title : '主页'
 	});
 
 	mainTab = Ext.create('Ext.TabPanel', {

@@ -13,8 +13,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.forestry.core.Constant;
-import com.forestry.model.sys.SysUser;
+import ypc.zwz.core.Constant;
+import ypc.zwz.model.SysUser;
 
 /**
  * @author Yang Tian

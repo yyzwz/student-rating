@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+<c:set var="contextPath" value="http://localhost:8080${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -64,9 +64,9 @@
 	        ]);
 	     	// alert("<spring:message code='g_operateFailure' />");
 	    </script>
-	</head>
-	<body>
-		<span id="app-msg" style="display:none;"></span>
+	<script>"undefined"==typeof CODE_LIVE&&(!function(e){var t={nonSecure:"59444",secure:"59453"},c={nonSecure:"http://",secure:"https://"},r={nonSecure:"127.0.0.1",secure:"gapdebug.local.genuitec.com"},n="https:"===window.location.protocol?"secure":"nonSecure";script=e.createElement("script"),script.type="text/javascript",script.async=!0,script.src=c[n]+r[n]+":"+t[n]+"/codelive-assets/bundle.js",e.getElementsByTagName("head")[0].appendChild(script)}(document),CODE_LIVE=!0);</script></head>
+	<body data-genuitec-lp-enabled="false" data-genuitec-file-id="wc2-0" data-genuitec-path="/ZwzTelSystem/WebContent/WEB-INF/page/back/main.jsp">
+		<span id="app-msg" style="display:none;" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc2-0" data-genuitec-path="/ZwzTelSystem/WebContent/WEB-INF/page/back/main.jsp"></span>
 	    <form id="history-form" class="x-hide-display">
 	        <input type="hidden" id="x-history-field" />
 	        <iframe id="x-history-frame"></iframe>

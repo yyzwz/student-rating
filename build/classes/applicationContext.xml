@@ -14,13 +14,21 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.forestry" />
+	<context:component-scan base-package="ypc.zwz" />
+	
+	<!-- 加载数据库配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		
+		<!-- <property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/property?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="user" value="root" />
-		<property name="password" value="qmm_xsh_1974" />
+		<property name="password" value="123456" />-->
 
 		<property name="acquireIncrement" value="3" />
 		<property name="idleConnectionTestPeriod" value="120" />
@@ -54,7 +62,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>com.forestry.model</value>  
+				<value>ypc.zwz.model</value>  
 			</list>
 		</property>
 	</bean>

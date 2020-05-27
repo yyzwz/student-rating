@@ -7,8 +7,8 @@ Ext.define('Ext.app.Home', {
 			layout : 'border',
 			items : 
 				[ 
-//					Ext.create('Forestry.app.Map')
-					Ext.create('Forestry.app.report.HouseZZReprot')
+					Ext.create('Forestry.app.Map')
+//					Ext.create('Forestry.app.report.HouseZZReprot')
 				]
 		});
 		this.callParent(arguments);
@@ -23,7 +23,7 @@ Ext.define('Forestry.app.Map', {
 	height : '100%',
 	split : true,
 	style : 'padding:10px; line-height:22px;',
-	html : '<center><p><h1>通讯录管理系统</h1></p><p><h2>计算机1701  郑为中</2></p></center>',
+	html : '</br></br><center><div><span style="color:#00CCFF;line-height:100px;font-size:64px;font-family:serif;font-weight:700;">ZWZ通讯录管理系统</span></br></br><span style="color:#F7C709;line-height:80px;font-size:50px;font-family:serif;font-weight:700;">人来登记 人走注销</span></br></br><span style="color:#F7C709;line-height:80px;font-size:50px;font-family:serif;font-weight:700;">不漏一户 不漏一人</span></br></br><span style="color:#C43C3C;line-height:30px;font-size:20px;font-family:serif;font-weight:700;">《数据库编程》期末作品</span></br><span style="color:#C43C3C;line-height:30px;font-size:20px;font-family:serif;font-weight:700;">计算机1701  郑为中</span></br><span style="color:#C43C3C;line-height:30px;font-size:20px;font-family:serif;font-weight:700;">2020年5月20日</span></div></center>',
 	initComponent : function() {
 		this.callParent(arguments);
 	}

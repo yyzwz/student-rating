@@ -1,6 +1,6 @@
 package core.web;
 
-import com.forestry.model.sys.SysUser;
+import ypc.zwz.model.SysUser;
 
 /**
  * @author Yang Tian
