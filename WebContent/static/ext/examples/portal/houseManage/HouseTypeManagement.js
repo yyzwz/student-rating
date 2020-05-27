@@ -1,4 +1,4 @@
-// 房屋类型管理
+// 关系类型管理
 Ext.onReady(function() {
 	Ext.tip.QuickTipManager.init();
 
@@ -7,7 +7,7 @@ Ext.onReady(function() {
 		constructor : function(config) {
 			config = config || {};
 			Ext.apply(config, {
-				title : '房屋类型信息',
+				title : '关系类型信息',
 				width : 350,
 				height : 240,
 				bodyPadding : '10 5',
@@ -135,7 +135,7 @@ Ext.onReady(function() {
 				dataIndex : 'id',
 				flex : 0.05
 			}, {
-				text : "房屋类型名称",
+				text : "关系类型名称",
 				dataIndex : 'houseTypeName',
 				flex : 0.15
 			}, {
