@@ -1,7 +1,7 @@
-// 房屋管理
 Ext.onReady(function() {
 	Ext.tip.QuickTipManager.init();
 
+	// 获取通讯录类型列表
 	var houseTypeNameStore = Ext.create('Ext.data.JsonStore', {
 		proxy : {
 			type : 'ajax',
@@ -14,19 +14,8 @@ Ext.onReady(function() {
 		},
 		fields : [ 'ItemText', 'ItemValue' ]
 	});
-	
-//	var departmentStore = Ext.create('Ext.data.JsonStore', {
-//		proxy : {
-//			type : 'ajax',
-//			url : appBaseUri + '/sys/department/getDepartments',
-//			reader : {
-//				type : 'json',
-//				root : 'list',
-//				idProperty : 'ItemValue'
-//			}
-//		},
-//		fields : [ 'ItemText', 'ItemValue' ]
-//	});
+
+	// 审核意见
 	var checkOpionAgree="同意";
 	var checkOpionDisagree="不同意";
 	var checkOpionStore = Ext.create("Ext.data.Store", {
@@ -37,7 +26,7 @@ Ext.onReady(function() {
 		]
 	});
 	
-	
+	// 添加对话框 修改对话框
 	Ext.define('App.HouseManagementInAllDepartWindow', {
 		extend : 'Ext.window.Window',
 		constructor : function(config) {
@@ -191,13 +180,136 @@ Ext.onReady(function() {
 			App.HouseManagementInAllDepartWindow.superclass.constructor.call(this, config);
 		}
 	});
+	
+	Ext.define('App.ImportWindow', {
+		extend : 'Ext.window.Window',
+		constructor : function(config) {
+			config = config || {};
+			var scope = this;
+			Ext.apply(config, {
+				title : '树木识别数据导入',
+				width : 500,
+				height : 190,
+				bodyPadding : '10 5',
+				modal : true,
+				layout : 'fit',
+				items : [ {
+					xtype : 'form',
+					fieldDefaults : {
+						labelAlign : 'left',
+						labelWidth : 70,
+						anchor : '100%'
+					},
+					items : [ {
+						xtype : 'fileuploadfield',
+						fieldLabel : '选择文件',
+						afterLabelTextTpl : '<span style="color:#FF0000;">*</span>',
+						buttonText : '请选择...',
+						name : 'importedFile',
+						emptyText : '请选择Excel文件',
+						blankText : 'Excel文件不能为空',
+						allowBlank : false,
+						listeners : {
+							change : function(view, value, eOpts) {
+								scope.checkImportFile(view, value);
+							}
+						}
+					}, {
+						columnWidth : 1,
+						xtype : 'fieldset',
+						title : '导入须知',
+						layout : {
+							type : 'table',
+							columns : 1
+						},
+						collapsible : false,// 是否可折叠
+						defaultType : 'label',// 默认的Form表单组件
+						items : [ {
+							html : '1、导入文件大小不超过2MB.'
+						}, {
+							html : '2、支持Microsoft Office Excel的xls和xlsx文件,模板<a href="' + appBaseUri + '/sys/tel/downloadImportedFile")>点此下载.</a>'
+						} ]
+					} ],
+					buttons : [ '->', {
+						text : '导入',
+						iconCls : 'icon-excel',
+						handler : function(btn) {
+							scope.importForestryFile(btn);
+						}
+					}, {
+						text : '取消',
+						iconCls : 'icon-cancel',
+						handler : function(btn) {
+							btn.up('window').close();
+						}
+					}, '->' ]
+				} ]
+			});
+			App.ImportWindow.superclass.constructor.call(this, config);
+		},
+		checkImportFile : function(fileObj, fileName) {
+			var scope = this;
+			if (!(scope.getFileType(scope.getFileSuffix(fileName)))) {
+				globalObject.errTip('导入文件类型有误！');
+				fileObj.reset();// 清空上传内容
+				return;
+			}
+		},
+		getFileType : function(suffix) {
+			var typestr = 'xls,xlsx';
+			var types = typestr.split(',');
+			for (var i = 0; i < types.length; i++) {
+				if (suffix == types[i]) {
+					return true;
+				}
+			}
+			return false;
+		},
+		getFileSuffix : function(fileName) {
+			var suffix = '';// 后缀
+			var index = fileName.lastIndexOf('.');// 文件名称中最后一个.的位置
+			if (index != -1) {
+				suffix = fileName.substr(index + 1).toLowerCase();// 后缀转成小写
+			}
+			return suffix;
+		},
+		importForestryFile : function(btn) {
+			var windowObj = btn.up('window');// 获取Window对象
+			var formObj = btn.up('form');// 获取Form对象
+			if (formObj.isValid()) { // 验证Form表单
+				formObj.form.doAction('submit', {
+					url : appBaseUri + '/sys/tel/importForestryFile',
+					method : 'POST',
+					submitEmptyText : false,
+					waitMsg : '正在导入文件,请稍候...',
+					timeout : 6000000, // 60s
+					success : function(response, options) {
+						var result = options.result;
+						if (!result.success) {
+							globalObject.errTip(result.msg);
+							return;
+						}
+						globalObject.infoTip(result.msg);
+						// var url = result.data;
+						windowObj.close();// 关闭窗体
+						Ext.getCmp('HouseManagementInAllDepartgrid').getStore().reload();
+					},
+					failure : function(response, options) {
+						globalObject.errTip(options.result.msg);
+					}
+				});
+			}
+		}
+	});
 
+	// 通讯录管理界面
 	Ext.define('Forestry.app.houseManage.TelManagementInAll', {
 		extend : 'Ext.ux.custom.GlobalGridPanel',
 		region : 'center',
 		initComponent : function() {
 			var me = this;
 	
+			// 数据类型
 			Ext.define('ModelList', {
 				extend : 'Ext.data.Model',
 				idProperty : 'id',
@@ -207,6 +319,7 @@ Ext.onReady(function() {
 				},'name', 'tel','relationshipName','qq' ,'address', 'registDate','ownerId','ownerName']
 			});
 
+			// 对接后台的api接口
 			var store = me.createStore({
 				modelName : 'ModelList',
 				// 获取列表
@@ -220,7 +333,7 @@ Ext.onReady(function() {
 				extraParams : me.extraParams
 			});
 
-			// 查询
+			// 条件查询 对话框
 			Ext.define('App.HouseQueryWindow', {
 				extend : 'Ext.window.Window',
 				constructor : function(config) {
@@ -279,6 +392,8 @@ Ext.onReady(function() {
 					App.HouseQueryWindow.superclass.constructor.call(this, config);
 				}
 			});
+			
+			// 列
 			var columns = [ 
 			{
 				text : "ID",
@@ -380,6 +495,7 @@ Ext.onReady(function() {
 				}]
 			} ];
 
+			// 网格布局 整合数据和列
 			Ext.apply(this, {
 				id : 'HouseManagementInAllDepartgrid',
 				store : store,
@@ -390,12 +506,18 @@ Ext.onReady(function() {
 
 			this.callParent(arguments);
 		},
+		
+		// 添加按钮单击事件
 		onAddClick : function() {
 			new App.HouseManagementInAllDepartWindow().show();
 		},
+		
+		// 条件查询按钮单击事件
 		onQueryClick : function() {
 			new App.HouseQueryWindow().show();
 		},
+		
+		// 全部查询按钮单击事件
 		onQueryAllClick : function() {
 			var store=Ext.getCmp("HouseManagementInAllDepartgrid").getStore();
 			var searchParams = {
@@ -404,6 +526,10 @@ Ext.onReady(function() {
 			Ext.apply(store.proxy.extraParams, searchParams);
 			store.reload();
 		},
+		onImportClick : function() {
+			new App.ImportWindow().show();
+		},
+		// 查看按钮单击事件
 		onViewClick : function() {
 			var grid = Ext.getCmp("HouseManagementInAllDepartgrid");
 			var id = grid.getSelectionModel().getSelection()[0].get('id');

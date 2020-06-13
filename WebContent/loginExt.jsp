@@ -297,6 +297,7 @@
 				$("#a_name").focus();
             	return false;
 			}
+			// 用户唯一性请求 判断
             $.ajax({
                 url: '<%=basePath%>/sys/sysuser/findByName?name=' + a_name,
                 type: 'post',
@@ -420,10 +421,10 @@
         
         <%--createCode() 方法用于处理四位验证码的生成、验证--%>
         //设置一个全局的变量code，便于保存验证码
-        var code = '';
+        var codeStr = '';
         function createCode(){
             //首先默认code为空字符串
-            code = '';
+            codeStr = '';
 
             //设置验证码长度，设置了4位
             var codeLength = 4;
@@ -439,23 +440,10 @@
                 //设置随机数范围,这设置为0 ~ 36
                 var index = Math.floor(Math.random()*36);
                 //字符串拼接 将每次随机的字符 进行拼接
-                code += random[index];
+                codeStr += random[index];
             }
             //将拼接好的字符串赋值给表单
-            codeV.value = code;
-            ///////////////////////////////////////////////////////
-            code = '';
-            var logincode = document.getElementById('loginCode');
-          	//生成N位随机验证码
-            for(var i = 0; i < codeLength; i++){
-                //设置随机数范围,这设置为0 ~ 36
-                var index = Math.floor(Math.random()*36);
-                //字符串拼接 将每次随机的字符 进行拼接
-                code += random[index];
-            }
-            //将拼接好的字符串赋值给表单
-            logincode.value = code;
-            
+            codeV.value = codeStr;
         }
 
 
@@ -463,8 +451,9 @@
         // 输入正确 返回 true
         // 输入错误 返回 false
         function validate(){
+        	// alert("ans = " + codeStr);
             var oValue = document.getElementById('check').value.toUpperCase();
-
+			// alert("now = " + oValue);
             //如果验证码为空
             if(oValue == 0){
             	alert("请输入验证码");
@@ -472,7 +461,7 @@
                 //    title: '警告信息',
                 //    content: '请输入验证码'
                 //});
-            }else if(oValue != code){
+            }else if(oValue != codeStr){
                 //如果验证码不正确
                 // $("#check").val("");
                 alert("验证码错误");

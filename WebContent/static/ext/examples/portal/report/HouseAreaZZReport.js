@@ -1,6 +1,4 @@
 
-
-//树木位置标识
 Ext.define('Forestry.app.report.HouseAreaZZReport', {
 	extend : 'Ext.panel.Panel',
 	initComponent : function() {
@@ -16,31 +14,36 @@ Ext.define('Forestry.app.report.HouseAreaZZReport', {
 	}
 });
 
-var qmm=[
+// 静态数据 数据请求之后会被替换
+var zwz=[
 	{departmentName :'小于30岁', proportion : 10},
 	{departmentName :'30-40岁', proportion : 40},
 	{departmentName :'40-50岁', proportion : 30},
 	{departmentName :'50岁以上', proportion : 20}
 ]
 
+// 请求数据
 Ext.Ajax.request({
 	async: false,
     url: '/ZwzTelSystem/sys/houseType/getDepartmentsInZZReport',
     method: 'POST',
     success: function (response, options) {
     	//alert(response.responseText);
-    	qmm = JSON.parse(response.responseText).list;
+    	zwz = JSON.parse(response.responseText).list;
         
     },
     failure: function (response, options) {
         Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
     }
 });
+
+//数据源
 var dataStore = new Ext.data.JsonStore({
 	fields:['departmentName', 'proportion','tenantNum'],
-	data: qmm
+	data: zwz
 });
-// 传感器在Leaflet地图的位置标识
+
+// 图
 Ext.define('Forestry.app.report.HouseZZReprot', {
 	extend : 'Ext.panel.Panel',
 	initComponent : function() {
@@ -75,8 +78,8 @@ Ext.define('Forestry.app.report.HouseZZReprot', {
 				series : [{
 	                type: 'column',//柱状图表序列
 	                axis: 'left',
-	                xField: 'departmentName',
-	                yField: 'proportion',
+	                xField: 'departmentName', //x坐标
+	                yField: 'proportion',//y坐标
 					title : '数量'
 	            }]
 			}]

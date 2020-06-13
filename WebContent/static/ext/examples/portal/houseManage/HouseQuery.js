@@ -29,6 +29,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 			fields : [ 'ItemText', 'ItemValue' ]
 		});
 		
+		// 通讯录关系类型
 		var houseTypeNameStore = Ext.create('Ext.data.JsonStore', {
 			proxy : {
 				type : 'ajax',
@@ -42,6 +43,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 			fields : [ 'ItemText', 'ItemValue' ]
 		});
 		
+		// 数据结构
 		Ext.define('ModelList', {
 			extend : 'Ext.data.Model',
 			idProperty : 'id',
@@ -55,6 +57,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 			}]
 		});
 
+		// 数据
 		var queryHousestore = Ext.create('Ext.data.Store', {
 			model : 'ModelList',
 			// autoDestroy: true,
@@ -78,6 +81,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 			} ]
 		});
 
+		// 列
 		var columns = [ {
 			text : "编号",
 			dataIndex : 'id',
@@ -116,6 +120,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 		}
 		];
 
+		// 导出按钮  条件查询 搜索框
 		var houseQueryToolbarToolbar = Ext.create('Ext.toolbar.Toolbar', {
 			items : [ 
 			{
@@ -189,6 +194,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 				width : '10%',
 				maxWidth : 60,
 				handler : function(btn, eventObj) {
+					// 查询单击事件
 					var searchParams = {
 							name : encodeURI(Ext.getCmp('houseQueryform_houseName').getValue()),
 							tel : encodeURI(Ext.getCmp('houseQueryform_houseOwnerName').getValue()),
@@ -196,6 +202,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 							relationshipName : encodeURI(Ext.getCmp('houseQueryform-houseTypeName').getValue())
 					};
 					Ext.apply(queryHousestore.proxy.extraParams, searchParams);
+					// 数据重新加载
 					queryHousestore.reload();
 				}
 			}, {
@@ -214,6 +221,7 @@ Ext.define('Forestry.app.houseManage.HouseQuery', {
 			} ]
 		});
 
+		// 整合
 		Ext.apply(this, {
 			id : 'HouseQuerygrid',
 			store : queryHousestore,

@@ -2,6 +2,7 @@
 Ext.onReady(function() {
 	Ext.tip.QuickTipManager.init();
 
+	// 添加关系类型  / 编辑关系类型  /  查看关系类型
 	Ext.define('App.HouseTypeManagementWindow', {
 		extend : 'Ext.window.Window',
 		constructor : function(config) {
@@ -103,12 +104,14 @@ Ext.onReady(function() {
 		}
 	});
 
+	// 主界面
 	Ext.define('Forestry.app.houseManage.HouseTypeManagement', {
 		extend : 'Ext.ux.custom.GlobalGridPanel',
 		region : 'center',
 		initComponent : function() {
 			var me = this;
 
+			// 数据结构
 			Ext.define('ModelList', {
 				extend : 'Ext.data.Model',
 				idProperty : 'id',
@@ -118,6 +121,7 @@ Ext.onReady(function() {
 				}, 'houseTypeName', 'houseTypeDesc' ]
 			});
 
+			// 数据源
 			var store = me.createStore({
 				modelName : 'ModelList',
 				// 获取列表
@@ -129,6 +133,7 @@ Ext.onReady(function() {
 				extraParams : me.extraParams
 			});
 
+			// 列
 			var columns = [ {
 				text : "ID",
 				xtype : "hidden",
@@ -155,6 +160,7 @@ Ext.onReady(function() {
 						var win = new App.HouseTypeManagementWindow({
 							hidden : true
 						});
+						// 读取指定关系的数据
 						var form = win.down('form').getForm();
 						form.loadRecord(gridRecord);
 						form.findField('houseTypeName').setReadOnly(true);
@@ -192,19 +198,23 @@ Ext.onReady(function() {
 				}]
 			} ];
 
+			// 整合
 			Ext.apply(this, {
 				id : 'HouseTypeManagementgrid',
 				store : store,
 				columns : columns
 			});
 
+			// 加载第一页
 			store.loadPage(1);
 
 			this.callParent(arguments);
 		},
+		//添加关系类型 事件
 		onAddClick : function() {
 			new App.HouseTypeManagementWindow().show();
 		},
+		// 查看关系类型事件
 		onViewClick : function() {
 			var grid = Ext.getCmp("HouseTypeManagementgrid");
 			var id = grid.getSelectionModel().getSelection()[0].get('id');

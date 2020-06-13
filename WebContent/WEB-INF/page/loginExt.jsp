@@ -125,7 +125,9 @@
                             </div>
                         </div>
                         
+                       	<%-- 验证码错误 反馈--%>
 						<span style="color:#f00;">${codeerror}</span>
+						
                         <%--  3 登入 按钮--%>
                         <div style="text-align:center;color: #009688;background-color: #01AAED;width:48%;margin-left:138px;">
                             <input type="button" class="layui-btn layui-btn-lg" style="background: none;" value="Sing in" onclick="loginValidate()"/>
